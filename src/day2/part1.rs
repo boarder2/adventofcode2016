@@ -17,9 +17,9 @@ pub fn run() {
         for ch in line.chars() {
             match ch {
                 'U' => y = cmp::max(y - 1, 0),
-                'D' => y = cmp::min(y + 1, 2),
+                'D' => y = cmp::min(y + 1, keypad.len() as i32 - 1),
                 'L' => x = cmp::max(x - 1, 0),
-                _ => x = cmp::min(x + 1, 2),
+                _ => x = cmp::min(x + 1, keypad[0].len() as i32 - 1),
             }
         }
         print!("{}", keypad[y as usize][x as usize]);
