@@ -1,5 +1,6 @@
 use day2::input;
 use std::cmp;
+use utils;
 
 pub fn run() {
     let input = input::get_input();
@@ -11,8 +12,7 @@ pub fn run() {
         ['0', 'A', 'B', 'C', '0'],
         ['0', '0', 'D', '0', '0']
     ];
-    let mut x: i32 = 0;
-    let mut y: i32 = 3;
+    let mut loc = utils::Point { x: 0, y: 3};
 
     print!("Day 2 Part 2: ");
     for line in instructions {
@@ -25,14 +25,14 @@ pub fn run() {
                 'L' => xChange = -1,
                 _ => xChange = 1,
             }
-            let newX = cmp::max(cmp::min(x + xChange, keypad[0].len() as i32 - 1), 0);
-            let newY = cmp::max(cmp::min(y + yChange, keypad.len() as i32 - 1), 0);
+            let newX = cmp::max(cmp::min(loc.x + xChange, keypad[0].len() as i32 - 1), 0);
+            let newY = cmp::max(cmp::min(loc.y + yChange, keypad.len() as i32 - 1), 0);
             if keypad[newY as usize][newX as usize] != '0' {
-                x = newX;
-                y = newY;
+                loc.x = newX;
+                loc.y = newY;
             }
         }
-        print!("{}", keypad[y as usize][x as usize]);
+        print!("{}", keypad[loc.y as usize][loc.x as usize]);
     }
     println!("");
 }
