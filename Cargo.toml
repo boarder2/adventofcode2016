@@ -2,3 +2,5 @@
 name = "advent_of_code"
 version = "0.0.1"
 authors = ["boarder2"]
+[dependencies]
+regex = "0.1"

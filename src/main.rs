@@ -3,6 +3,7 @@ mod day2;
 mod day3;
 mod day4;
 mod utils;
+extern crate regex;
 
 fn main() {
     day1::part1::run();
