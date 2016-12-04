@@ -1,6 +1,4 @@
 use day3::input;
-use std::cmp;
-use utils;
 
 pub fn run() {
     let input = input::get_input();

@@ -17,19 +17,19 @@ pub fn run() {
     print!("Day 2 Part 2: ");
     for line in instructions {
         for ch in line.chars() {
-            let mut yChange = 0;
-            let mut xChange = 0;
+            let mut y_change = 0;
+            let mut x_change = 0;
             match ch {
-                'U' => yChange = -1,
-                'D' => yChange = 1,
-                'L' => xChange = -1,
-                _ => xChange = 1,
+                'U' => y_change = -1,
+                'D' => y_change = 1,
+                'L' => x_change = -1,
+                _ => x_change = 1,
             }
-            let newX = cmp::max(cmp::min(loc.x + xChange, keypad[0].len() as i32 - 1), 0);
-            let newY = cmp::max(cmp::min(loc.y + yChange, keypad.len() as i32 - 1), 0);
-            if keypad[newY as usize][newX as usize] != '0' {
-                loc.x = newX;
-                loc.y = newY;
+            let new_x = cmp::max(cmp::min(loc.x + x_change, keypad[0].len() as i32 - 1), 0);
+            let new_y = cmp::max(cmp::min(loc.y + y_change, keypad.len() as i32 - 1), 0);
+            if keypad[new_y as usize][new_x as usize] != '0' {
+                loc.x = new_x;
+                loc.y = new_y;
             }
         }
         print!("{}", keypad[loc.y as usize][loc.x as usize]);
