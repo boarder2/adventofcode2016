@@ -1,5 +1,5 @@
 pub fn get_input() -> String {
-    return "hqcfqwydw-fbqijys-whqii-huiuqhsx-660[qhiwf]
+	return "hqcfqwydw-fbqijys-whqii-huiuqhsx-660[qhiwf]
 oxjmxdfkd-pzxsbkdbo-erkq-ixyloxqlov-913[xodkb]
 bpvctixr-eaphixr-vgphh-gthtpgrw-947[smrkl]
 iwcjapey-lhwopey-cnwoo-wymqeoepekj-992[eowpy]
@@ -952,5 +952,5 @@ ujoon-eaphixr-vgphh-prfjxhxixdc-193[hyzjx]
 dfcxsqhwzs-qobrm-zcuwghwqg-168[qwcgh]
 bqvvu-ydkykhwpa-klanwpekjo-966[kapvw]
 aoubshwq-pibbm-kcfygvcd-740[wnucy]"
-        .to_string();
+		.to_string();
 }
