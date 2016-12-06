@@ -14,6 +14,7 @@ pub fn run() {
 		//println!("{}", decrypted_name);
 		if decrypted_name == "northpoleobjectstorage" {
 			println!("Day 4 Part 2: {}", sector_id);
+			break;
 		}
 	}
 }
