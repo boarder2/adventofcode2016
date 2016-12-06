@@ -21,7 +21,7 @@ pub fn run() {
 		let capture = reg.captures(line).unwrap();
 		let e = Entry {
 			name: capture.name("name").unwrap(),
-			sector: capture.name("sector").unwrap().parse().expect("couldn't parse sector"),
+			sector: capture.name("sector").unwrap().parse().unwrap(),
 			checksum: capture.name("checksum").unwrap(),
 		};
 		entries.push(e);
