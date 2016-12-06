@@ -1,5 +1,7 @@
 use day4::input;
 use regex::Regex;
+use std::cmp::Ordering;
+use std::collections::HashMap;
 
 #[derive(Debug, Copy, Clone)]
 struct Entry<'a> {
@@ -11,7 +13,7 @@ struct Entry<'a> {
 pub fn run() {
 	let input = input::get_input();
 	let lines = input.lines();
-	let mut count_good = 0;
+	let mut sector_sum = 0;
 	let reg = Regex::new(r"(?P<name>[a-z-]+)-(?P<sector>\d+)\[(?P<checksum>[a-z]+)\]").unwrap();
 	let mut entries = Vec::new();
 
@@ -25,12 +27,30 @@ pub fn run() {
 		entries.push(e);
 	}
 
-	for e in entries {
-		println!("Name: {} Sector: {} Checksum: {}",
-		         e.name.replace("-", ""),
-		         e.sector,
-		         e.checksum);
+	'entries_loop: for e in entries {
+		let mut count_chars: HashMap<char, i32> = HashMap::new();
+		for ch in e.name.replace("-", "").chars() {
+			*count_chars.entry(ch).or_insert(0) += 1;
+		}
+
+		let mut count_vec: Vec<_> = count_chars.iter().collect();
+		count_vec.sort_by(|a, b| {
+			let count_order = b.1.cmp(a.1);
+			if count_order == Ordering::Equal {
+				a.0.cmp(b.0)
+			} else {
+				count_order
+			}
+		});
+
+		for (i, ch) in e.checksum.chars().enumerate() {
+			if ch != *count_vec[i].0 {
+				continue 'entries_loop;
+			}
+		}
+
+		sector_sum += e.sector;
 	}
 
-	println!("Day 4 Part 1: {}", count_good);
+	println!("Day 4 Part 1: {}", sector_sum);
 }
