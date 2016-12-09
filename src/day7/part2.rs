@@ -9,8 +9,7 @@ pub fn run() {
 
 	'line: for line in input.lines() {
 		let mut in_bracket = false;
-		for i in 0..line.len() - 1 {
-			let current_char = line.chars().nth(i).unwrap();
+		for (i, current_char) in line.chars().enumerate() {
 			if current_char == '[' {
 				in_bracket = true;
 				continue;
