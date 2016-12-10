@@ -36,7 +36,7 @@ pub fn run() {
 			}
 		}
 	}
-	println!("Day 7 Part 2: {}", count);
+	println!("Day 7 Part 2: (Broken) {}", count);
 }
 
 fn find_aba_pattern(find: &str, offset: usize) -> option::Option<(char, char)> {
