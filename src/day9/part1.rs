@@ -1,5 +1,4 @@
 use day9::input;
-use regex::Regex;
 
 pub fn run() {
 	let input = input::get_input();
@@ -8,17 +7,16 @@ pub fn run() {
 	let mut decomp_length = 0;
 	let mut in_marker = false;
 	let mut marker = String::new();
-	let marker_rex = Regex::new(r"(?P<length>\d*)x(?P<multiplier>\d*)").unwrap();
 	while keep_processing {
 		if let Some(ch) = char_iter.next() {
 			if ch == ')' {
 				in_marker = false;
-				if let Some(captures) = marker_rex.captures(&marker) {
-					let length: usize = captures.name("length").unwrap().parse().unwrap();
-					let multiplier: usize = captures.name("multiplier").unwrap().parse().unwrap();
-					char_iter.nth(length - 1);
-					decomp_length += length * multiplier;
-				}
+				let local_marker = marker.to_owned();
+				let mut a = local_marker.split("x");
+				let length: usize = a.next().unwrap().parse().unwrap();
+				let multiplier: usize = a.next().unwrap().parse().unwrap();
+				char_iter.nth(length - 1);
+				decomp_length += length * multiplier;
 				marker.clear();
 				continue;
 			} else if in_marker {
