@@ -18,18 +18,16 @@ pub fn run() {
 				char_iter.nth(length - 1);
 				decomp_length += length * multiplier;
 				marker.clear();
-				continue;
 			} else if in_marker {
 				marker.push(ch);
-				continue;
 			} else if ch == '(' {
-				in_marker = true;
-				continue;
+				in_marker = true
+			} else {
+				decomp_length += 1;
 			}
-			decomp_length += 1;
 		} else {
 			keep_processing = false;
-		}		
+		}
 	}
 	println!("Day 9 Part 1: {}", decomp_length);
 }
