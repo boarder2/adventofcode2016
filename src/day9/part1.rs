@@ -3,30 +3,27 @@ use day9::input;
 pub fn run() {
 	let input = input::get_input();
 	let mut char_iter = input.chars();
-	let mut keep_processing = true;
 	let mut decomp_length = 0;
-	let mut in_marker = false;
-	let mut marker = String::new();
-	while keep_processing {
+	let mut marker_start = -1;
+	let mut input_index = 0;
+	while input_index < input.len() {
 		if let Some(ch) = char_iter.next() {
+			let mut index_skip = 1;
 			if ch == ')' {
-				in_marker = false;
-				let local_marker = marker.to_owned();
+				let local_marker = input[(marker_start + 1) as usize..input_index].to_string();
 				let mut a = local_marker.split("x");
 				let length: usize = a.next().unwrap().parse().unwrap();
 				let multiplier: usize = a.next().unwrap().parse().unwrap();
 				char_iter.nth(length - 1);
+				index_skip = length + 1;
 				decomp_length += length * multiplier;
-				marker.clear();
-			} else if in_marker {
-				marker.push(ch);
+				marker_start = -1;
 			} else if ch == '(' {
-				in_marker = true
-			} else {
+				marker_start = input_index as i32;
+			} else if marker_start < 0 {
 				decomp_length += 1;
 			}
-		} else {
-			keep_processing = false;
+			input_index += index_skip;
 		}
 	}
 	println!("Day 9 Part 1: {}", decomp_length);
