@@ -16,7 +16,6 @@ pub fn run() {
 				let multiplier: usize = a.next().unwrap().parse().unwrap();
 				char_iter.nth(length - 1);
 				index_skip = length + 1;
-				print!("({}) ", local_marker);
 				let inside_length = parse(input[input_index + 1..input_index + 1 + length].to_string());
 				decomp_length += inside_length * multiplier;
 				marker_start = -1;
@@ -32,6 +31,19 @@ pub fn run() {
 }
 
 fn parse(instr: String) -> usize {
-	 println!("Parsing: {:?}", instr);
-	 instr.len()
+	if let Some(start) = instr.find("(") {
+		if let Some(end) = instr.find(")") {
+			let local_marker = instr[(start + 1) as usize..end].to_string();
+			let mut a = local_marker.split("x");
+			let length: usize = a.next().unwrap().parse().unwrap();
+			let multiplier: usize = a.next().unwrap().parse().unwrap();
+			let current_len = parse(instr[end + 1..end + 1 + length].to_string()) * multiplier;
+			let mut extra_len = 0;
+			if end + 1 + length < instr.len() {
+				 extra_len = parse(instr[end + 1 + length..instr.len()].to_string());
+			}
+			return current_len + extra_len;
+		}
+	}
+	instr.len()
 }
