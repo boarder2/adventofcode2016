@@ -7,7 +7,9 @@
 // mod day7;
 // mod day8;
 // mod day9;
-mod day10;
+// mod day10;
+// mod day11;
+mod day12;
 mod utils;
 extern crate regex;
 extern crate crypto;
@@ -31,5 +33,9 @@ fn main() {
 	// day8::part2::run();
 	// day9::part1::run();
 	// day9::part2::run();
-	day10::run();
+	// day10::run();
+	// day11::part1::run();
+	// day11::part2::run();
+	day12::part1::run();
+	day12::part2::run();
 }
