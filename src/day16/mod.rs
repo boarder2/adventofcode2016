@@ -16,9 +16,9 @@ fn generate_data(d: Vec<bool>, fill_length: usize) -> Vec<bool> {
 	let mut data = Vec::with_capacity(fill_length);
 	data.extend(d);
 	while data.len() < fill_length {
-		let mut rev = data.iter().rev().map(|x| !x).collect::<Vec<bool>>();
+		let rev = data.iter().rev().map(|x| !x).collect::<Vec<bool>>();
 		data.push(false);
-		data.append(&mut rev);
+		data.extend(rev);
 	}
 	data.truncate(fill_length);
 	data
