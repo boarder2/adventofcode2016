@@ -12,12 +12,15 @@
 // mod day12;
 mod day14;
 // mod day16;
-mod day18;
+// mod day18;
 mod utils;
 extern crate regex;
 extern crate crypto;
+extern crate time;
+use time::PreciseTime;
 
 fn main() {
+	let start = PreciseTime::now();
 	// day1::part1::run();
 	// day1::part2::run();
 	// day2::part1::run();
@@ -42,6 +45,8 @@ fn main() {
 	// day12::part1::run();
 	// day12::part2::run();
 	// day16::run();
-	//day14::part1::run();
-	day18::run();
+	day14::part1::run();
+	//day18::run();
+	let end = PreciseTime::now();
+	println!("Took {}", start.to(end));
 }
