@@ -3,8 +3,8 @@ use crypto::md5::Md5;
 use std::collections::LinkedList;
 
 pub fn run() {
-	//let input_bytes = "jlmsuwbz".as_bytes();
-	let input_bytes = "abc".as_bytes();
+	let input_bytes = "jlmsuwbz".as_bytes();
+	//let input_bytes = "abc".as_bytes();
 	let mut num_found = 0;
 	let mut md5 = Md5::new();
 
