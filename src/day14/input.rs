@@ -1,3 +1,4 @@
 pub fn get_input() -> String {
-	return "ojvtpuvg".to_string();
+	//return "jlmsuwbz".to_string();
+	return "abc".to_string();
 }
