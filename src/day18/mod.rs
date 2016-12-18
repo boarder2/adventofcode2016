@@ -6,17 +6,13 @@ pub fn run() {
 		.map(|c| c == '^')
 		.collect::<Vec<bool>>();
 
-	let initial_count = data.iter()
-            .map(|&y| if y { 0 } else { 1 })
-            .collect::<Vec<u32>>()
-            .iter()
-            .sum::<u32>();
+	let initial_count = data.iter().filter(|&x| !x).count() as u64;
 	
 	println!("Day 18 Part 1: {:?}", get_count(data.clone(), initial_count, row_count_p1));
 	println!("Day 18 Part 2: {:?}", get_count(data, initial_count, row_count_p2));
 }
 
-fn get_count(input: Vec<bool>, initial_count: u32, rows: u32) -> u32 {
+fn get_count(input: Vec<bool>, initial_count: u64, rows: u64) -> u64 {
 	let mut count = initial_count;
 	let mut data = input;
 	for _ in 0..rows - 1 {
@@ -27,18 +23,13 @@ fn get_count(input: Vec<bool>, initial_count: u32, rows: u32) -> u32 {
 	count
 }
 
-fn generate_line(d: Vec<bool>) -> (Vec<bool>, u32) {
+fn generate_line(d: Vec<bool>) -> (Vec<bool>, u64) {
 	let mut new_line = Vec::with_capacity(d.len());
 	let mut count = 0;
 	for i in 0..d.len() {
-		let t;
-		if i == 0 {
-			t = is_trap(false, d[i], d[i + 1]);
-		} else if i == d.len() - 1 {
-			t = is_trap(d[i - 1], d[i], false);
-		} else {
-			t = is_trap(d[i - 1], d[i], d[i + 1]);
-		}
+		let l = if i == 0 { false } else { d[i-1] };
+		let r = if i == d.len() - 1 { false } else { d[i+1] };
+		let t = is_trap(l, d[i], r);
 		if !t { count += 1; }
 		new_line.push(t);
 	}
