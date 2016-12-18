@@ -45,7 +45,7 @@ fn main() {
 	// day12::part1::run();
 	// day12::part2::run();
 	// day16::run();
-	day14::part1::run();
+	day14::run();
 	//day18::run();
 	let end = PreciseTime::now();
 	println!("Took {}", start.to(end));
