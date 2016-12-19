@@ -1,8 +1,7 @@
 use crypto::digest::Digest;
 use crypto::md5::Md5;
-use std::collections::LinkedList;
 use std::collections::HashMap;
-//const SALT: &'static str = "abc";
+// const SALT: &'static str = "abc";
 const SALT: &'static str = "jlmsuwbz";
 
 pub fn run() {
@@ -17,10 +16,8 @@ fn find_index(rounds: usize) -> usize {
 	for i in 0.. {
 		let h = input_hashes.entry(i).or_insert_with(|| hash(i, rounds)).clone();
 		if let Some(ch) = find_pattern(h.to_owned(), 3) {
-			let mut ch5 = String::with_capacity(5);
-			for _ in 0..5 {
-				ch5.push(ch);
-			}
+			let ch5 = String::from_utf8(vec![ch as u8, ch as u8, ch as u8, ch as u8, ch as u8])
+				.unwrap();
 			for i_next in i + 1..i + 1001 {
 				let h1 = input_hashes.entry(i_next).or_insert_with(|| hash(i_next, rounds));
 				if h1.find(ch5.as_str()) != None {
@@ -50,23 +47,17 @@ fn hash(i: u64, rounds: usize) -> String {
 }
 
 fn find_pattern(s: String, num_required: usize) -> Option<char> {
-	let mut section = LinkedList::new();
-
-	'next_char: for ch in s.chars() {
-		section.push_back(ch);
-		if section.len() > num_required {
-			section.pop_front();
-		} else if section.len() != num_required {
-			continue;
-		}
-
-		let comp = section.front().unwrap();
-		for c in section.iter() {
-			if c != comp {
-				continue 'next_char;
+	for w in s.chars().collect::<Vec<char>>().windows(num_required) {
+		let mut found = true;
+		for i in 1..num_required {
+			if w[0] != w[i] {
+				found = false;
+				break;
 			}
 		}
-		return Some(ch);
+		if found {
+			return Some(w[0]);
+		}
 	}
 	None
 }
