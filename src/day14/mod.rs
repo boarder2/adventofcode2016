@@ -1,41 +1,52 @@
 use crypto::digest::Digest;
 use crypto::md5::Md5;
 use std::collections::LinkedList;
+use std::collections::HashMap;
+//const SALT: &'static str = "abc";
+const SALT: &'static str = "jlmsuwbz";
 
 pub fn run() {
-	let input_bytes = "jlmsuwbz".as_bytes();
-	//let input_bytes = "abc".as_bytes();
+	println!("Day 14 Part 1: {}", find_index(0));
+	println!("Day 14 Part 2: {}", find_index(2016));
+}
+
+fn find_index(rounds: usize) -> usize {
 	let mut num_found = 0;
-	let mut md5 = Md5::new();
+	let mut input_hashes = HashMap::new();
 
-	for i in 0..u64::max_value() {
-		md5.input(input_bytes);
-		md5.input(i.to_string().as_bytes());
-
-		let hash = md5.result_str();
-
-		if let Some(ch) = find_pattern(hash.to_owned(), 3) {
+	for i in 0.. {
+		let h = input_hashes.entry(i).or_insert_with(|| hash(i, rounds)).clone();
+		if let Some(ch) = find_pattern(h.to_owned(), 3) {
 			let mut ch5 = String::with_capacity(5);
 			for _ in 0..5 {
 				ch5.push(ch);
 			}
 			for i_next in i + 1..i + 1001 {
-				md5.reset();
-				md5.input(input_bytes);
-				md5.input(i_next.to_string().as_bytes());
-				let h1 = md5.result_str();
+				let h1 = input_hashes.entry(i_next).or_insert_with(|| hash(i_next, rounds));
 				if h1.find(ch5.as_str()) != None {
 					num_found += 1;
 					if num_found >= 64 {
-						println!("Day 14 Part 1: {}", i);
-						return;
+						return i as usize;
 					}
 					break;
 				}
 			}
 		}
-		md5.reset();
 	}
+	return 0;
+}
+
+fn hash(i: u64, rounds: usize) -> String {
+	let mut md5 = Md5::new();
+	md5.input_str(SALT);
+	md5.input_str(&i.to_string());
+	let mut hash = md5.result_str();
+	for _ in 0..rounds {
+		md5.reset();
+		md5.input_str(&hash);
+		hash = md5.result_str();
+	}
+	String::from(hash)
 }
 
 fn find_pattern(s: String, num_required: usize) -> Option<char> {
