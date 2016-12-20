@@ -13,7 +13,8 @@
 // mod day14;
 // mod day16;
 // mod day18;
-mod day19;
+//mod day19;
+mod day20;
 mod utils;
 extern crate regex;
 extern crate crypto;
@@ -48,8 +49,9 @@ fn main() {
 	// day16::run();
 	//day14::run();
 	//day18::run();
-	day19::part1::run();
+	//day19::part1::run();
 	//day19::part2::run();
+	day20::run();
 	let end = PreciseTime::now();
 	println!("Took {}", start.to(end));
 }
