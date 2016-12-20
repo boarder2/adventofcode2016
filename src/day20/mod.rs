@@ -16,7 +16,6 @@ pub fn run() {
 		.collect::<Vec<(u32, u32)>>();
 	sorted.sort_by_key(|x| x.0);
 
-	// Ideally use references so we're not copying but meh.
 	let mut largest_entry = sorted[0];
 	for entry in sorted {
 		if entry.1 > largest_entry.1 && entry.0 <= largest_entry.1 {
